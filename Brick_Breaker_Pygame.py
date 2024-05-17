@@ -2,12 +2,13 @@ import pygame
 
 pygame.init()
 
-# 스크린 설정
+# 스크린, 폰트 설정
 display_width = 1000
 display_height = 800
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("벽돌 깨기")
 score_font = pygame.font.SysFont("comicsans", 40)
+life_font = pygame.font.SysFont("comicsans", 40)
 
 # 색
 WHITE = (255, 255, 255)
@@ -34,9 +35,11 @@ bricks = []
 score = 0
 life = 3
 
+#패들, 공 생성
 paddle = pygame.Rect(400, 750, paddle_width, paddle_height)
 ball = pygame.Rect(500, 700, ball_radius * 2, ball_radius * 2)
 
+# 벽돌 생성
 for i in range(9):
     for j in range(9):
         brick = pygame.Rect(j * (brick_width + 4) + 40, i * (brick_height + 4) + 25, brick_width, brick_height)
@@ -78,8 +81,9 @@ while running:
         life -= 1
         ball.x = 500
         ball.y = 500
-
+    
     score_text = score_font.render("Score: " + str(score), 1, "black")
+    life_text = life_font.render("Life: " + str(life), 1, "black")
     display.fill(WHITE)
     pygame.draw.rect(display, BLACK, paddle)
     pygame.draw.ellipse(display, RED, ball)
